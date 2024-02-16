@@ -34,39 +34,47 @@
         </div>
 
         <div class="content pure-u-1 pure-u-md-3-4">
-            <h1 id="welcome" style="text-align: left;"></h1>
-            <a href="https://info.flagcounter.com/V8d3"><img
-                    src="https://s11.flagcounter.com/count2/V8d3/bg_FFFFFF/txt_000000/border_CCCCCC/columns_1/maxflags_3/viewers_0/labels_0/pageviews_0/flags_0/percent_0/"
-                    alt="Flag Counter" border="0"></a>
+            <div class="sections">
+                <h1 id="welcome" class="content-subhead"></h1>
+                <a href="https://info.flagcounter.com/V8d3"><img
+                        src="https://s11.flagcounter.com/count2/V8d3/bg_FFFFFF/txt_000000/border_CCCCCC/columns_1/maxflags_3/viewers_0/labels_0/pageviews_0/flags_0/percent_0/"
+                        alt="Flag Counter" border="0"></a>
 
-            <div id="digit-clock"></div>
-            <script type="text/javascript">
-                function displayTime() {
-                    document.getElementById('digit-clock').innerHTML = "Current time: " + new Date();
-                }
+                <h2 class="content-subhead">Collection of Clocks</h2>
+                <div id="digit-clock"></div>
+                <script type="text/javascript">
+                    function displayTime() {
+                        document.getElementById('digit-clock').innerHTML = "Current time: " + new Date();
+                    }
 
-                setInterval(displayTime, 500)
-            </script>
-            <canvas id="analog-clock" width="150" height="150" style="background-color: #999;"></canvas>
-            <script type="text/javascript" src="https://waph-uc.github.io/clock.js"></script>
-            <script type="text/javascript">
-                var canvas = document.getElementById("analog-clock");
-                var ctx = canvas.getContext("2d");
-                var radius = canvas.height / 2;
-                ctx.translate(radius, radius);
-                radius = radius * 0.90;
-                setInterval(drawClock, 1000);
+                    setInterval(displayTime, 500)
+                </script>
+                <canvas id="analog-clock" width="150" height="150" style="background-color: #999;"></canvas>
+                <script type="text/javascript" src="https://waph-uc.github.io/clock.js"></script>
+                <script type="text/javascript">
+                    var canvas = document.getElementById("analog-clock");
+                    var ctx = canvas.getContext("2d");
+                    var radius = canvas.height / 2;
+                    ctx.translate(radius, radius);
+                    radius = radius * 0.90;
+                    setInterval(drawClock, 1000);
 
-                function drawClock() {
-                    drawFace(ctx, radius);
-                    drawNumbers(ctx, radius);
-                    drawTime(ctx, radius);
-                }
-            </script>
+                    function drawClock() {
+                        drawFace(ctx, radius);
+                        drawNumbers(ctx, radius);
+                        drawTime(ctx, radius);
+                    }
+                </script>
 
-            <div id="joke"></div>
-            <h2>Here's a random dog pic: </h2>
-            <img id="xkcd" src="" crossorigin="anonymous" />
+                <h2 class="content-subhead">Random Math Fact</h2>
+                <div id="math"></div>
+
+                <h2 class="content-subhead">Joke</h2>
+                <div id="joke"></div>
+
+                <h2 class="content-subhead">Random Dog Pic</h2>
+                <img id="dog" class="pure-img" src="" />
+            </div>
 
             <h1 style="text-align: left;">Resume</h1>
             <div class="sections">
@@ -307,13 +315,14 @@
                     getJoke()
                     getDog()
                     cookieWelcome()
+                    randomMathFact()
                 }
 
                 function toggleContactVisibility() {
                     if (shown) {
-                        document.getElementById("contact").innerHTML = "<a class='pure-button' onclick='toggleContactVisibility()'>Show Email</a>";
+                        document.getElementById("contact").innerHTML = "<a class='pure-button' onclick='toggleContactVisibility()'>Show Email</a>\n<a class='pure-button' href='https://duffycf-uc.github.io/waph.html'>WAPH</a>";
                     } else {
-                        var myEmail = "<a class='pure-button' href='mailto:duffycf@mail.uc.edu'>duffycf@mail.uc.edu</a>\n<a class='pure-button' onclick='toggleContactVisibility()'>Hide Email</a>";
+                        var myEmail = "<a class='pure-button' href='mailto:duffycf@mail.uc.edu'>duffycf@mail.uc.edu</a>\n<a class='pure-button' onclick='toggleContactVisibility()'>Hide Email</a>\n<a class='pure-button' href='https://duffycf-uc.github.io/waph.html'>WAPH</a>";
                         document.getElementById("contact").innerHTML = myEmail;
                     }
 
@@ -331,11 +340,19 @@
                     Cookies.set('welcome', new Date())
                 }
 
+                function randomMathFact() {
+                    $.get("http://numbersapi.com/random/math?json",
+                        function (result) {
+                            $('#math').html(result.text)
+                        }
+                    )
+                }
+
                 function getDog() {
                     $.get("https://dog.ceo/api/breeds/image/random",
                         function (result) {
-                            var xkcd = result.message
-                            $('#xkcd').attr('src', xkcd);
+                            var dog = result.message
+                            $('#dog').attr('src', dog);
                         }
                     );
                 }
@@ -345,7 +362,7 @@
                 function getJoke() {
                     $.get("https://v2.jokeapi.dev/joke/Programming?type=single",
                         function (result) {
-                            $('#joke').html("Here's a joke: " + result.joke);
+                            $('#joke').html(result.joke);
                         }
                     );
                 }
