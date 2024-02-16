@@ -4,7 +4,7 @@
 ## Instructor: Dr. Phu Phung
 
 ## Student
-![Headshot](../../images/headshot.jpg "Headshot")
+![Headshot](images/headshot.jpg "Headshot")
 
 **Name**: Cole Duffy
 
