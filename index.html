@@ -66,8 +66,8 @@
                     }
                 </script>
 
-                <h2 class="content-subhead">Random Math Fact</h2>
-                <div id="math"></div>
+                <h2 class="content-subhead">Random Quote</h2>
+                <div id="quote"></div>
 
                 <h2 class="content-subhead">Joke</h2>
                 <div id="joke"></div>
@@ -315,7 +315,7 @@
                     getJoke()
                     getDog()
                     cookieWelcome()
-                    randomMathFact()
+                    randomQuote()
                 }
 
                 function toggleContactVisibility() {
@@ -340,10 +340,10 @@
                     Cookies.set('welcome', new Date())
                 }
 
-                function randomMathFact() {
-                    $.get("http://numbersapi.com/random/math?json",
+                function randomQuote() {
+                    $.get("https://api.quotable.io/quotes/random",
                         function (result) {
-                            $('#math').html(result.text)
+                            $('#quote').html(result[0].content + " - " + result[0].author)
                         }
                     )
                 }
